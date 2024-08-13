@@ -6,33 +6,34 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/20 15:23:06 by eedwards          #+#    #+#              #
-#    Updated: 2024/05/20 15:23:09 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/13 12:17:52 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-
-SRCS = ft_printf.c ft_putchar.c ft_putnbr_p.c ft_putnbr.c ft_putstr.c
-OBJS = $(SRCS:.c=.o)
-
-
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 
+SRCS = ft_printf.c ft_putchar.c ft_putnbr_p.c ft_putnbr.c ft_putstr.c
+OBJS = $(SRCS:.c=.o)
+
 %.o: %.c
-	$(CC) $(CFLAGS) -c $?
+	@$(CC) $(CFLAGS) -c $?
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
+	@echo "$(NAME) created"
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
+	@echo "Ft_printf object files removed"
 
-fclean: clean
-	$(RM) $(NAME)
+fclean:
+	@$(RM) $(NAME)
+	@echo "$(NAME) removed"
 
 re: fclean $(NAME)
 

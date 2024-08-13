@@ -6,16 +6,17 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/30 16:48:11 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/13 11:32:37 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
-
-
-
-
 NAME = libft.a
+CC = cc -g
+RM = rm -f
+CFLAGS = -Wall -Wextra -Werror
+PRINTF_DIR = ft_printf
+PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
+MAKE_SILENT = make --no-print-directory
 
 SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_isdigit.c ft_isprint.c ft_isspace.c ft_itoa.c ft_memchr.c ft_memcmp.c \
@@ -30,39 +31,35 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 
 GNL_SRCS =	gnl/get_next_line_utils.c gnl/get_next_line.c \
 
-PRINTF_DIR = ft_printf
-PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
-
 OBJS = $(SRCS:.c=.o)
 GNL_OBJS = $(GNL_SRCS:.c=.o)
 
-CC = cc
-RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
-
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $?
 
 gnl/%.o: gnl/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 	
 all: $(NAME)
 
 $(NAME): $(OBJS) $(GNL_OBJS) $(PRINTF_LIB)
-	ar x $(PRINTF_LIB)
-	ar rcs $(NAME) $(OBJS) $(GNL_OBJS) *.o
-	$(RM) *.o
+	@ar x $(PRINTF_LIB)
+	@ar rcs $@ $(OBJS) $(GNL_OBJS) *.o
+	@$(RM) *.o
+	@echo "$(NAME) created"
 
 $(PRINTF_LIB):
-	$(MAKE) -C $(PRINTF_DIR)
+	@$(MAKE_SILENT) -C $(PRINTF_DIR)
 
 clean:
-	$(RM) $(OBJS) $(GNL_OBJS)
-	$(MAKE) -C $(PRINTF_DIR) clean
+	@$(RM) $(OBJS) $(GNL_OBJS)
+	@$(MAKE_SILENT) -C $(PRINTF_DIR) clean
+	@echo "Libft object files removed"
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(PRINTF_DIR) fclean
+	@$(RM) $(NAME)
+	@$(MAKE_SILENT) -C $(PRINTF_DIR) fclean
+	@echo "$(NAME) removed"
 
 re: fclean all
 
