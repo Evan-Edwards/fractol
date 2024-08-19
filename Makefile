@@ -6,7 +6,7 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/13 13:01:19 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/19 11:56:12 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MLX = minilibx
 MLXA = libmlx.a
 
 
-SRCS = f_main.c
+SRCS = f_main.c math.c mlx_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
