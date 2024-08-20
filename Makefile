@@ -6,7 +6,7 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/19 11:56:12 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/19 15:25:40 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,14 @@ CC = cc -g
 RM = rm -f
 CFLAGS = -Wall -Werror
 #add back -Wextra
-LFLAGS = -L./$(MLX) -lmlx -L./$(LIBFT) -lft -lX11 -lXext
+LFLAGS = -L./$(MLX) -lmlx -L./$(LIBFT) -lft -lX11 -lXext -lm
 LIBFT = libft
 LIBFTA = libft.a
 MLX = minilibx
 MLXA = libmlx.a
 
 
-SRCS = f_main.c math.c mlx_utils.c
+SRCS = fractal_calc.c f_main.c math.c mlx_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

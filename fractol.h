@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/19 13:43:01 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:29:14 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ typedef struct	s_fractal {
 	int		bbp;
 	int		line_length; //number of bytes used to store single row of pixels
 	int		endian; //determines how pixels stored in memory (least or most signifcant first)
-	int		max_x;
-	int		max_y;
+	double	x_min;
+	double	x_max;
+	double	y_min;
+	double	y_max;
+	double	jul_arg1;
+	double	jul_arg2;
 }				t_fractal;
 
 typedef struct	s_complex
@@ -45,13 +49,17 @@ typedef struct	s_complex
 }				t_complex;
 
 
+int			ft_check_valid(char *arg);
+int			input_check(int ac, char **av);
 
 /* ************************************************************************** */
 /*                                 MLX UTILS                                  */
 /* ************************************************************************** */
 void		fractal_init(t_fractal *fractal);
-int			ft_close(t_fractal *vars);
-int			key_hook(int keycode, t_fractal *vars);
+int			ft_close(t_fractal *fractal);
+int			esc_key_hook(int keycode, t_fractal *fractal);
+int			mouse_hook(int button, int x, int y, t_fractal *fractal);
+void		malloc_error(void);
 void		pixel_put_image(t_fractal *img, int x, int y, int color);
 
 
@@ -67,10 +75,10 @@ double		scaleBetween(double unscaled, double new_min, double new_max,
 /* ************************************************************************** */
 /*                              FRACTAL CALC                                  */
 /* ************************************************************************** */
-void		parse_pixels(t_fractal *img, char **av);
-int			which_color(t_fractal *fractal, char **av, double xx, double yy);
+void		parse_pixels(t_fractal *fractal);
+int			which_color(t_fractal *fractal, double xx, double yy);
 void		ft_set_compl_values(double real, double imaginary, t_complex *cz);
-int			ft_julia_check(double x, double y, char **av);
+int			ft_julia_check(double x, double y, t_fractal *fractal);
 int			ft_mandelbrot_check(double x, double y);
 
 #endif
