@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 12:48:51 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:17:17 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "libft/libft.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h> //DELETE
 #include <stdlib.h> //malloc free
 #include <unistd.h> //write
 
@@ -56,6 +57,12 @@ int			input_check(int ac, char **av);
 int			check_julia_input(char *arg);
 
 /* ************************************************************************** */
+/*                                 ATOD                                       */
+/* ************************************************************************** */
+double		ft_atod(const char *str);
+double		after_dec(const char *str);
+
+/* ************************************************************************** */
 /*                                 MLX UTILS                                  */
 /* ************************************************************************** */
 void		fractal_init(t_fractal *fractal);
@@ -68,7 +75,7 @@ void		pixel_put_image(t_fractal *img, int x, int y, int color);
 /*                                 MLX HOOKS                                  */
 /* ************************************************************************** */
 int			arrow_keys_hook(int	keycode, t_fractal *fractal);
-int			esc_key_hook(int keycode, t_fractal *fractal);
+int			key_hook(int keycode, t_fractal *fractal);
 int			mouse_hook(int button, int x, int y, t_fractal *fractal);
 
 /* ************************************************************************** */

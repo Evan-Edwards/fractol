@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 12:54:15 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:44:16 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,18 @@ void	fractal_init(t_fractal *fractal)
 	fractal->mlx = mlx_init();
 	if (!fractal->mlx)
 		malloc_error();
-	ft_putstr("check\n");
-	
 	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->title);
-	ft_putstr("check\n");
 	if (!fractal->win)
 		ft_close(fractal);
-	ft_putstr("check\n");
-
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
 	if (!fractal->img)
 		ft_close(fractal);
-	ft_putstr("check\n");
-	
 	fractal->img_addr = mlx_get_data_addr(fractal->img, &fractal->bbp, 
 										&fractal->line_length, &fractal->endian);
-	mlx_key_hook(fractal->win, esc_key_hook, fractal);
-	mlx_key_hook(fractal->win, arrow_keys_hook, fractal);
+	mlx_key_hook(fractal->win, key_hook, fractal);
 	mlx_hook(fractal->win, 17, 0, ft_close, fractal);
 	mlx_mouse_hook(fractal->win, mouse_hook, fractal);
-	ft_putstr("Fractal intiated\n");
+	//ft_putstr("Fractal intiated\n");
 }
 
 //initializes the non-initialized variables in the fractal struct
@@ -49,9 +41,12 @@ void	fractal_init_values(t_fractal *fractal, char **av)
 	fractal->title = av[1];
 	if (!(strncmp(av[1], "julia", 5)))
 	{
-		fractal->jul_arg1 = ft_atoi(av[2]);
-		fractal->jul_arg2 = ft_atoi(av[3]);
+		fractal->jul_arg1 = ft_atod(av[2]);
+		fractal->jul_arg2 = ft_atod(av[3]);
 	}
+	ft_putstr("check\n");
+	printf("Arg 1: %f\n", fractal->jul_arg1);
+	printf("Arg 2: %f\n", fractal->jul_arg2);
 }
 
 //puts colored pixels into the fractal->img

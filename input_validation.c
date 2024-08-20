@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:03:42 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 12:23:53 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:30:45 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,24 @@ int	input_check(int ac, char **av)
 int	check_julia_input(char *arg)
 {
 	int	i;
+	int	dec;
 
 	i = 0;
+	dec = 0;
 	if ((arg[i] == '-' || arg[i] == '+') && ft_isdigit(arg[i + 1]) == 1)
 		i++;
 	while (arg[i])
 	{
-		if (ft_isdigit(arg[i]) == 0)
+		if (ft_isdigit(arg[i]))
+			i++;
+		else if (arg[i] == '.' && dec == 0)
+		{
+			dec++;
+			i++;
+		}
+		else
 			return (0);
-		i++;
 	}
 	return (1);
 }
+

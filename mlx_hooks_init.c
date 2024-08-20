@@ -6,20 +6,22 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:09:19 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 12:28:36 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:52:10 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	esc_key_hook(int keycode, t_fractal *fractal)
+int	key_hook(int keycode, t_fractal *fractal)
 {
 	int	esc;
 
 	esc = 65307;
-	ft_printf("keycode is: %i", keycode);
+	//ft_printf("keycode is: %i", keycode);
 	if (keycode == esc)
 		ft_close(fractal);
+	if (keycode >= 65361 && keycode <= 65364)
+		arrow_keys_hook(keycode, fractal);
 	return (0);
 }
 
@@ -62,8 +64,8 @@ int	arrow_keys_hook(int	keycode, t_fractal *fractal)
 	}
 	if (keycode == 65362)//up
 	{
-		fractal->y_max += offset;
-		fractal->y_min += offset;
+		fractal->y_max -= offset;
+		fractal->y_min -= offset;
 	}
 	if (keycode == 65363)//right
 	{
@@ -72,8 +74,8 @@ int	arrow_keys_hook(int	keycode, t_fractal *fractal)
 	}
 	if (keycode == 65364)//down
 	{
-		fractal->y_max -= offset;
-		fractal->y_min -= offset;
+		fractal->y_max += offset;
+		fractal->y_min += offset;
 	}
 	parse_pixels(fractal);
 	return (0);
