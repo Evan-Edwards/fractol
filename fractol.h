@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 11:29:14 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:48:51 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,27 @@ typedef struct	s_complex
 }				t_complex;
 
 
-int			ft_check_valid(char *arg);
+/* ************************************************************************** */
+/*                             INPUT VALIDATION                               */
+/* ************************************************************************** */
 int			input_check(int ac, char **av);
+int			check_julia_input(char *arg);
 
 /* ************************************************************************** */
 /*                                 MLX UTILS                                  */
 /* ************************************************************************** */
 void		fractal_init(t_fractal *fractal);
+void		fractal_init_values(t_fractal *fractal, char **av);
 int			ft_close(t_fractal *fractal);
-int			esc_key_hook(int keycode, t_fractal *fractal);
-int			mouse_hook(int button, int x, int y, t_fractal *fractal);
 void		malloc_error(void);
 void		pixel_put_image(t_fractal *img, int x, int y, int color);
 
+/* ************************************************************************** */
+/*                                 MLX HOOKS                                  */
+/* ************************************************************************** */
+int			arrow_keys_hook(int	keycode, t_fractal *fractal);
+int			esc_key_hook(int keycode, t_fractal *fractal);
+int			mouse_hook(int button, int x, int y, t_fractal *fractal);
 
 /* ************************************************************************** */
 /*                                    MATH                                    */

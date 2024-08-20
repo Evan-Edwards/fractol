@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 11:33:24 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:54:15 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,29 @@ void	fractal_init(t_fractal *fractal)
 	fractal->mlx = mlx_init();
 	if (!fractal->mlx)
 		malloc_error();
+	ft_putstr("check\n");
+	
 	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->title);
+	ft_putstr("check\n");
 	if (!fractal->win)
 		ft_close(fractal);
+	ft_putstr("check\n");
+
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
-	if (!fractal->win)
+	if (!fractal->img)
 		ft_close(fractal);
+	ft_putstr("check\n");
+	
 	fractal->img_addr = mlx_get_data_addr(fractal->img, &fractal->bbp, 
 										&fractal->line_length, &fractal->endian);
 	mlx_key_hook(fractal->win, esc_key_hook, fractal);
+	mlx_key_hook(fractal->win, arrow_keys_hook, fractal);
 	mlx_hook(fractal->win, 17, 0, ft_close, fractal);
 	mlx_mouse_hook(fractal->win, mouse_hook, fractal);
+	ft_putstr("Fractal intiated\n");
 }
 
+//initializes the non-initialized variables in the fractal struct
 void	fractal_init_values(t_fractal *fractal, char **av)
 {
 	fractal->x_min = -2;
@@ -37,12 +47,15 @@ void	fractal_init_values(t_fractal *fractal, char **av)
 	fractal->y_min = -2;
 	fractal->y_max = 2;
 	fractal->title = av[1];
-	fractal->jul_arg1 = ft_atoi(av[2]);
-	fractal->jul_arg2 = ft_atoi(av[3]);
-	
+	if (!(strncmp(av[1], "julia", 5)))
+	{
+		fractal->jul_arg1 = ft_atoi(av[2]);
+		fractal->jul_arg2 = ft_atoi(av[3]);
+	}
 }
 
-//after we go through every pixel then we push the img
+//puts colored pixels into the fractal->img
+//color determined by int color and pixel by x and y
 void	pixel_put_image(t_fractal *fractal, int x, int y, int color)
 {
 	char	*dst;
@@ -51,68 +64,8 @@ void	pixel_put_image(t_fractal *fractal, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	esc_key_hook(int keycode, t_fractal *fractal)
-{
-	int	esc;
-
-	esc = 65307;
-	ft_printf("keycode is: %i", keycode);
-	if (keycode == esc)
-		ft_close(fractal);
-	return (0);
-}
-
-int	mouse_hook(int button, int x, int y, t_fractal *fractal)
-{
-	t_complex	range;
-	t_complex	center;
-	
-	range.real = fractal->x_max - fractal->x_min;
-	range.imaginary = fractal->y_max - fractal->y_min;
-	if (button == 4)//scroll up
-	{
-		range.real *= 0.9;
-		range.imaginary *= 0.9;
-	}
-	if (button == 5)//scroll down
-	{
-		range.real *= 1.1;
-		range.imaginary *= 1.1;
-	}
-	
-}
-
-int	arrow_keys_hook(int	keycode, t_fractal *fractal)
-{
-	double	offset;
-
-	offset = (fractal->x_max - fractal->x_min) / 10;
-	if (keycode == 65361)//left
-	{
-		fractal->x_max -= offset;
-		fractal->x_min -= offset;
-	}
-	if (keycode == 65362)//up
-	{
-		fractal->y_max += offset;
-		fractal->y_min += offset;
-	}
-	if (keycode == 65363)//right
-	{
-		fractal->x_max += offset;
-		fractal->x_min += offset;
-	}
-	if (keycode == 65364)//down
-	{
-		fractal->y_max -= offset;
-		fractal->y_min -= offset;
-	}
-	parse_pixels(fractal);
-}
-
-int	
-
-//destroys display and frees data used
+//destroys image, window, and display and frees mlx
+//then exits
 int	ft_close(t_fractal *fractal)
 {
 	if (fractal->img)
@@ -125,6 +78,7 @@ int	ft_close(t_fractal *fractal)
 	//is 0 the correct exit code?
 }
 
+//gives an error message if malloc fails then exits
 void	malloc_error(void)
 {
 	ft_putstr_fd(MALLOC_ERR_MESSAGE, 2);
