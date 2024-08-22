@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 15:17:17 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:09:26 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@
 #define MALLOC_ERR_MESSAGE "Malloc failed"
 #define INVALID_ARGS_MESSAGE "Input invalid. Examples of valid input:\n ./fractol mandelbrot \n ./fractol julia <num 1> <num 2>"
 
+// Define colors using RGBA values (with transparency)
+#define COLOR_BLACK   0x000000FF
+#define COLOR_WHITE   0xFFFFFFFF
+#define COLOR_RED     0xFF0000FF
+#define COLOR_GREEN   0x00FF00FF
+#define COLOR_BLUE    0x0000FFFF
+#define COLOR_YELLOW  0xFFFF00FF
+#define COLOR_CYAN    0x00FFFFFF
+#define COLOR_MAGENTA 0xFF00FFFF
+
+// Define psychedelic colors
+#define COLOR_PSY_1   0xFF00FF80
+#define COLOR_PSY_2   0x00FF80FF
+#define COLOR_PSY_3   0x80FF00FF
+#define COLOR_PSY_4   0xFF8000FF
+#define COLOR_PSY_5   0x00FF00FF
+
 #include "minilibx/mlx.h" //doesn't work at home
 #include "libft/libft.h"
 #include <stdlib.h>
@@ -25,6 +42,7 @@
 #include <stdio.h> //DELETE
 #include <stdlib.h> //malloc free
 #include <unistd.h> //write
+#include <float.h> //for DBL_MAX
 
 typedef struct	s_fractal {
 	char	*title;
@@ -41,6 +59,8 @@ typedef struct	s_fractal {
 	double	y_max;
 	double	jul_arg1;
 	double	jul_arg2;
+	int		*color_array;
+	double	zoom;
 }				t_fractal;
 
 typedef struct	s_complex
@@ -49,6 +69,7 @@ typedef struct	s_complex
 	double	imaginary;
 }				t_complex;
 
+int			*set_color_array(void);
 
 /* ************************************************************************** */
 /*                             INPUT VALIDATION                               */
@@ -67,8 +88,9 @@ double		after_dec(const char *str);
 /* ************************************************************************** */
 void		fractal_init(t_fractal *fractal);
 void		fractal_init_values(t_fractal *fractal, char **av);
+int			*set_color_array(void);
 int			ft_close(t_fractal *fractal);
-void		malloc_error(void);
+void		malloc_error(t_fractal *fractal);
 void		pixel_put_image(t_fractal *img, int x, int y, int color);
 
 /* ************************************************************************** */
@@ -77,6 +99,7 @@ void		pixel_put_image(t_fractal *img, int x, int y, int color);
 int			arrow_keys_hook(int	keycode, t_fractal *fractal);
 int			key_hook(int keycode, t_fractal *fractal);
 int			mouse_hook(int button, int x, int y, t_fractal *fractal);
+void		cycle_colors(t_fractal *fractal);
 
 /* ************************************************************************** */
 /*                                    MATH                                    */

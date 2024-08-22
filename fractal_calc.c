@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:33:06 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 11:02:53 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:57:06 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	parse_pixels(t_fractal *fractal)
 	while (++y < HEIGHT)
 	{
 		//does this need to be opposite?
-		yy = scaleBetween(y, fractal->y_min, fractal->y_max, 0, HEIGHT);
+		yy = scaleBetween(-y, fractal->y_min, fractal->y_max, -(HEIGHT - 1), 0);
 		x = -1;
 		while (++x < WIDTH)
 		{
-			xx = scaleBetween(x, fractal->x_min, fractal->x_max, 0, WIDTH);
+			xx = scaleBetween(x, fractal->x_min, fractal->x_max, 0, WIDTH - 1);
 			pixel_put_image(fractal, x, y, which_color(fractal, xx, yy));
 		} 
 	}
@@ -39,21 +39,15 @@ void	parse_pixels(t_fractal *fractal)
 int	which_color(t_fractal *fractal, double xx, double yy)
 {
 	int		iterations;
-	int 	color1;
-	int		color2;
 	
-	color1 = 6561336;
-	color2 = 15426616;
 	if (!(ft_strncmp(fractal->title, "mandelbrot", 10)))
 		iterations = ft_mandelbrot_check(xx, yy);
 	else 
 		iterations = ft_julia_check(xx, yy, fractal);
-	if (iterations == 1000)
-		return (color1);
-	else
-		return (color2);
+	return (fractal->color_array[iterations%100]);
 	//add more colors, can add to header
 }
+
 
 //sets the values for the real and imaginary parts of the complex numbers
 void	ft_set_compl_values(double real, double imaginary, t_complex *cz)
@@ -78,6 +72,9 @@ int	ft_mandelbrot_check(double xx, double yy)
 	ft_set_compl_values(0, 0, &z);
 	iteration = -1;
 	while (++iteration < 1000 && absolute_complex(z) <= 2)
+	{
+		
+	}
 		z = sum_complex(squared_complex(z), c);
 	return (iteration);
 }

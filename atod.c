@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:13:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 15:49:46 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/22 11:21:26 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 double	ft_atod(const char *str)
 {
 	double	result;
-	long	check;
 	int		sign;
 
 	sign = 1;
@@ -26,21 +25,16 @@ double	ft_atod(const char *str)
 		str++;
 	while (*str >= '0' && *str <= '9' && *str)
 	{
-		check = result;
 		result = result * 10 + *str - '0';
-		if (result / 10 != check && sign < 0)
-			return (0);
-		if (result / 10 != check && sign > 0)
-			return (-1);
 		str++;
 	}
-	printf("Atod %f\n", result);
+	//printf("Atod %f\n", result);
 	if (*str == '.')
 	{
 		printf("after_dec %f\n", after_dec(str + 1));
 		result += after_dec(str + 1);
 	}
-	printf("Test %f\n", result);
+	//printf("Test %f\n", result);
 	return ((result * sign));
 }
 

@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 15:44:16 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:11:42 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	fractal_init(t_fractal *fractal)
 {
 	fractal->mlx = mlx_init();
 	if (!fractal->mlx)
-		malloc_error();
+		malloc_error(fractal);
 	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->title);
 	if (!fractal->win)
 		ft_close(fractal);
@@ -44,9 +44,25 @@ void	fractal_init_values(t_fractal *fractal, char **av)
 		fractal->jul_arg1 = ft_atod(av[2]);
 		fractal->jul_arg2 = ft_atod(av[3]);
 	}
-	ft_putstr("check\n");
-	printf("Arg 1: %f\n", fractal->jul_arg1);
-	printf("Arg 2: %f\n", fractal->jul_arg2);
+	fractal->color_array = set_color_array();
+}
+
+int	*set_color_array(void)
+{
+		static int	array[11];
+
+		array[0] = COLOR_BLACK;
+		array[1] = COLOR_WHITE;
+		array[2] = COLOR_RED;
+		array[3] = COLOR_GREEN;
+		array[4] = COLOR_BLUE;
+		array[5] = COLOR_YELLOW;
+		array[6] = COLOR_CYAN;
+		array[7] = COLOR_MAGENTA;
+		array[8] = COLOR_PSY_1;
+		array[9] = COLOR_PSY_2;
+		array[10] = COLOR_PSY_3;
+		return (array);
 }
 
 //puts colored pixels into the fractal->img
@@ -74,9 +90,8 @@ int	ft_close(t_fractal *fractal)
 }
 
 //gives an error message if malloc fails then exits
-void	malloc_error(void)
+void	malloc_error(t_fractal *fractal)
 {
 	ft_putstr_fd(MALLOC_ERR_MESSAGE, 2);
-	exit (0);
-	//is 0 the correct exit code?
+	ft_close(fractal);
 }
