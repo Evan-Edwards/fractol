@@ -6,13 +6,13 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/22 16:11:42 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:40:01 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	fractal_init(t_fractal *fractal)
+void	fractal_init(t_fractal *fractal, char **av)
 {
 	fractal->mlx = mlx_init();
 	if (!fractal->mlx)
@@ -28,16 +28,10 @@ void	fractal_init(t_fractal *fractal)
 	mlx_key_hook(fractal->win, key_hook, fractal);
 	mlx_hook(fractal->win, 17, 0, ft_close, fractal);
 	mlx_mouse_hook(fractal->win, mouse_hook, fractal);
-	//ft_putstr("Fractal intiated\n");
-}
-
-//initializes the non-initialized variables in the fractal struct
-void	fractal_init_values(t_fractal *fractal, char **av)
-{
-	fractal->x_min = -2;
-	fractal->x_max = 2;
-	fractal->y_min = -2;
-	fractal->y_max = 2;
+	fractal->x_min = -2.0;
+	fractal->x_max = 2.0;
+	fractal->y_min = -2.0;
+	fractal->y_max = 2.0;
 	fractal->title = av[1];
 	if (!(strncmp(av[1], "julia", 5)))
 	{
@@ -46,6 +40,7 @@ void	fractal_init_values(t_fractal *fractal, char **av)
 	}
 	fractal->color_array = set_color_array();
 }
+
 
 int	*set_color_array(void)
 {
@@ -80,7 +75,7 @@ void	pixel_put_image(t_fractal *fractal, int x, int y, int color)
 int	ft_close(t_fractal *fractal)
 {
 	if (fractal->img)
-		mlx_destroy_image(fractal->mlx, fractal->img_addr);
+		mlx_destroy_image(fractal->mlx, fractal->img);
 	if (fractal->win)
 		mlx_destroy_window(fractal->mlx, fractal->win);
 	mlx_destroy_display(fractal->mlx);

@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/22 16:09:26 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:39:56 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 #define HEIGHT	800
 #define MALLOC_ERR_MESSAGE "Malloc failed"
 #define INVALID_ARGS_MESSAGE "Input invalid. Examples of valid input:\n ./fractol mandelbrot \n ./fractol julia <num 1> <num 2>"
+#define ESC_KEY 65307
+#define C_KEY 99
+#define LEFT_KEY 65361
+#define UP_KEY 65362
+#define RIGHT_KEY 65363
+#define DOWN_KEY 65364
+#define PLUS_KEY 107
+#define MINUS_KEY 109
+#define SCROLL_UP 4
+#define SCROLL_DOWN 5
+
 
 // Define colors using RGBA values (with transparency)
 #define COLOR_BLACK   0x000000FF
@@ -63,11 +74,6 @@ typedef struct	s_fractal {
 	double	zoom;
 }				t_fractal;
 
-typedef struct	s_complex
-{
-	double	real;
-	double	imaginary;
-}				t_complex;
 
 int			*set_color_array(void);
 
@@ -87,7 +93,6 @@ double		after_dec(const char *str);
 /*                                 MLX UTILS                                  */
 /* ************************************************************************** */
 void		fractal_init(t_fractal *fractal);
-void		fractal_init_values(t_fractal *fractal, char **av);
 int			*set_color_array(void);
 int			ft_close(t_fractal *fractal);
 void		malloc_error(t_fractal *fractal);
@@ -102,21 +107,13 @@ int			mouse_hook(int button, int x, int y, t_fractal *fractal);
 void		cycle_colors(t_fractal *fractal);
 
 /* ************************************************************************** */
-/*                                    MATH                                    */
-/* ************************************************************************** */
-double		absolute_complex(t_complex a);
-t_complex	sum_complex(t_complex a, t_complex b);
-t_complex	squared_complex(t_complex a);
-double		scaleBetween(double unscaled, double new_min, double new_max,
-										 double old_min, double old_max);
-
-/* ************************************************************************** */
 /*                              FRACTAL CALC                                  */
 /* ************************************************************************** */
 void		parse_pixels(t_fractal *fractal);
 int			which_color(t_fractal *fractal, double xx, double yy);
-void		ft_set_compl_values(double real, double imaginary, t_complex *cz);
 int			ft_julia_check(double x, double y, t_fractal *fractal);
 int			ft_mandelbrot_check(double x, double y);
+double		scaleBetween(double unscaled, double new_min, double new_max,
+										 double old_min, double old_max);
 
 #endif

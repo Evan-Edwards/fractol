@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:33:06 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/22 16:57:06 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:39:58 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ void	parse_pixels(t_fractal *fractal)
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 }
 
+double	scaleBetween(double unscaled, double new_min, double new_max, 
+										double old_min, double old_max)
+{
+	return((new_max - new_min) * (unscaled - old_min) / (old_max - old_min) + new_min);
+}
+
 //returns a color based on whether the xx and yy given are part of the mandelbrot
 //or Julia sets or not
 int	which_color(t_fractal *fractal, double xx, double yy)
@@ -44,58 +50,71 @@ int	which_color(t_fractal *fractal, double xx, double yy)
 		iterations = ft_mandelbrot_check(xx, yy);
 	else 
 		iterations = ft_julia_check(xx, yy, fractal);
-	return (fractal->color_array[iterations%100]);
+	return (fractal->color_array[iterations % 11]);
 	//add more colors, can add to header
-}
-
-
-//sets the values for the real and imaginary parts of the complex numbers
-void	ft_set_compl_values(double real, double imaginary, t_complex *cz)
-{
-	cz->real = real;
-	cz->imaginary = imaginary;
 }
 
 //checks whether an xx and yy are part of the mandelbrot set
 //calculated by iterating formula: z = z^2 + c
+//squaring z = zr^2 - zi^2 + 2 * zr * zi
 // c real = xx / imaginary = yy
 // z starts as 0
-//If it diverges (absolute value of z is more than 2) within the iteration limit 
+//If it diverges (absolute value of z^2 is more than 4) within the iteration limit 
 //(1000) then it is not part of the set 
-int	ft_mandelbrot_check(double xx, double yy)
+//(absolute value of z)^2 = zr^2 + zi^2
+int	ft_mandelbrot_check(double cr, double ci)
 {
-	t_complex	c;
-	t_complex	z;
-	int			iteration;
+	double	zi;
+	double	zr;
+	double	zi2;
+	double	zr2;
+	int		iteration;
 
-	ft_set_compl_values(xx, yy, &c);
-	ft_set_compl_values(0, 0, &z);
-	iteration = -1;
-	while (++iteration < 1000 && absolute_complex(z) <= 2)
+	zi = 0.0;
+	zr = 0.0;
+	iteration = 0;
+	while (iteration < 1000)
 	{
-		
+		zr2 = zr * zr;
+		zi2 = zi * zi;
+		if (zr2 + zi2 > 4.0 )
+			break;
+		zr = zr2 - zi2 + cr;
+		zi = 2.0 * zr * zi + ci;
+		iteration++;
 	}
-		z = sum_complex(squared_complex(z), c);
 	return (iteration);
 }
 
-//checks whether an xx and yy are part of the Julia set
+//checks whether a given x and y are part of the Julia set
 //calculated by iterating formula: z = z^2 + c
+//squaring z = zr^2 - zi^2 + 2 * zr * zi
 // c real and imaginary values set to arguements given in av
 // z real = xx / imaginary = yy
-//If it diverges (absolute value of z is more than 2) within the iteration limit 
-//(1000) then it is not part of the set 
-int	ft_julia_check(double xx, double yy, t_fractal *fractal)
+//If it diverges (absolute value of z ^2 is more than 4) within the iteration limit 
+//(1000) then it is not part of the set
+//(absolute value of z)^2 = zr^2 + zi^2
+int	ft_julia_check(double zr, double zi, t_fractal *fractal)
 {
-	t_complex	c;
-	t_complex	z;
-	int			iteration;
+	double	cr;
+	double	ci;
+	double	zi2;
+	double	zr2;
+	int		iteration;
 
-	ft_set_compl_values(fractal->jul_arg1, fractal->jul_arg2, &c);
-	ft_set_compl_values(xx, yy, &z);
-	iteration = -1;
-	while (++iteration < 1000 && absolute_complex(z) <= 2)
-		z = sum_complex(squared_complex(z), c);
+	cr = fractal->jul_arg1;
+	ci = fractal->jul_arg2;
+	iteration = 0;
+	while (iteration < 1000)
+	{
+		zr2 = zr * zr;
+		zi2 = zi * zi;
+		if (zr2 + zi2 > 4 )
+			break;
+		zr = zr2 - zi2 + cr;
+		zi = 2.0 * zr * zi + ci;
+		iteration++;
+	}
 	return (iteration);
 }
 
