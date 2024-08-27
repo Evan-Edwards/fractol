@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/26 14:39:56 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:05:36 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 #define UP_KEY 65362
 #define RIGHT_KEY 65363
 #define DOWN_KEY 65364
-#define PLUS_KEY 107
-#define MINUS_KEY 109
+#define PLUS_KEY 65451
+#define MINUS_KEY 65453
 #define SCROLL_UP 4
 #define SCROLL_DOWN 5
 
@@ -72,6 +72,7 @@ typedef struct	s_fractal {
 	double	jul_arg2;
 	int		*color_array;
 	double	zoom;
+	double	iterations;
 }				t_fractal;
 
 
@@ -92,7 +93,7 @@ double		after_dec(const char *str);
 /* ************************************************************************** */
 /*                                 MLX UTILS                                  */
 /* ************************************************************************** */
-void		fractal_init(t_fractal *fractal);
+void		fractal_init(t_fractal *fractal, char **av);
 int			*set_color_array(void);
 int			ft_close(t_fractal *fractal);
 void		malloc_error(t_fractal *fractal);
@@ -105,6 +106,7 @@ int			arrow_keys_hook(int	keycode, t_fractal *fractal);
 int			key_hook(int keycode, t_fractal *fractal);
 int			mouse_hook(int button, int x, int y, t_fractal *fractal);
 void		cycle_colors(t_fractal *fractal);
+void		iteration_change(t_fractal *fractal, int keycode);
 
 /* ************************************************************************** */
 /*                              FRACTAL CALC                                  */
@@ -112,7 +114,7 @@ void		cycle_colors(t_fractal *fractal);
 void		parse_pixels(t_fractal *fractal);
 int			which_color(t_fractal *fractal, double xx, double yy);
 int			ft_julia_check(double x, double y, t_fractal *fractal);
-int			ft_mandelbrot_check(double x, double y);
+int			ft_mandelbrot_check(double cr, double ci, t_fractal *fractal);
 double		scaleBetween(double unscaled, double new_min, double new_max,
 										 double old_min, double old_max);
 

@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/26 14:40:01 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:55:01 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	fractal_init(t_fractal *fractal, char **av)
 	fractal->y_min = -2.0;
 	fractal->y_max = 2.0;
 	fractal->title = av[1];
+	fractal->iterations = 100.0;
 	if (!(strncmp(av[1], "julia", 5)))
 	{
 		fractal->jul_arg1 = ft_atod(av[2]);

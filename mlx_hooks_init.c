@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:09:19 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/26 14:39:55 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:12:01 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int key_hook(int keycode, t_fractal *fractal)
 {
     
+	ft_printf("keycode: %i\n", keycode);
 	if (keycode == ESC_KEY)
         ft_close(fractal);
     else if (keycode >= LEFT_KEY && keycode <= DOWN_KEY)
@@ -22,7 +23,7 @@ int key_hook(int keycode, t_fractal *fractal)
     else if (keycode == C_KEY)
         cycle_colors(fractal);
 	else if (keycode == PLUS_KEY || keycode == MINUS_KEY)
-		//TODO
+		iteration_change(fractal, keycode);
     return (0);
 }
 
@@ -49,6 +50,15 @@ int	mouse_hook(int button, int x, int y, t_fractal *fractal)
 	fractal->y_max = mouse_pos_i + range_i / 2;
 	parse_pixels(fractal);
 	return (0);
+}
+
+void	iteration_change(t_fractal *fractal, int keycode)
+{
+	if (keycode == PLUS_KEY)
+		fractal->iterations += 50;
+	else if (keycode == MINUS_KEY)
+		fractal->iterations -= 50;
+	parse_pixels(fractal);
 }
 
 int	arrow_keys_hook(int	keycode, t_fractal *fractal)
