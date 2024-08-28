@@ -6,7 +6,7 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/20 15:23:06 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/13 12:17:52 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/14 10:45:25 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ clean:
 	@echo "Ft_printf object files removed"
 
 fclean:
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(OBJS)
 	@echo "$(NAME) removed"
 
 re: fclean $(NAME)

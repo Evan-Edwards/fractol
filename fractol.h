@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/27 13:05:36 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:17:14 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 #define WIDTH	800
 #define HEIGHT	800
-#define MALLOC_ERR_MESSAGE "Malloc failed"
-#define INVALID_ARGS_MESSAGE "Input invalid. Examples of valid input:\n ./fractol mandelbrot \n ./fractol julia <num 1> <num 2>"
 #define ESC_KEY 65307
 #define C_KEY 99
 #define LEFT_KEY 65361
@@ -27,7 +25,6 @@
 #define MINUS_KEY 65453
 #define SCROLL_UP 4
 #define SCROLL_DOWN 5
-
 
 // Define colors using RGBA values (with transparency)
 #define COLOR_BLACK   0x000000FF
@@ -62,8 +59,8 @@ typedef struct	s_fractal {
 	void	*img;
 	char	*img_addr;
 	int		bbp;
-	int		line_length; //number of bytes used to store single row of pixels
-	int		endian; //determines how pixels stored in memory (least or most signifcant first)
+	int		line_length;
+	int		endian;
 	double	x_min;
 	double	x_max;
 	double	y_min;
@@ -74,9 +71,6 @@ typedef struct	s_fractal {
 	double	zoom;
 	double	iterations;
 }				t_fractal;
-
-
-int			*set_color_array(void);
 
 /* ************************************************************************** */
 /*                             INPUT VALIDATION                               */
@@ -115,6 +109,7 @@ void		parse_pixels(t_fractal *fractal);
 int			which_color(t_fractal *fractal, double xx, double yy);
 int			ft_julia_check(double x, double y, t_fractal *fractal);
 int			ft_mandelbrot_check(double cr, double ci, t_fractal *fractal);
+int			ft_burning_ship_check(double cr, double ci, t_fractal *fractal);
 double		scaleBetween(double unscaled, double new_min, double new_max,
 										 double old_min, double old_max);
 

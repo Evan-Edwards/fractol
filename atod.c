@@ -6,12 +6,13 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:13:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/27 12:57:35 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:21:26 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+//makes arguements given for julia into doubles
 double	ft_atod(const char *str)
 {
 	double	result;
@@ -28,16 +29,16 @@ double	ft_atod(const char *str)
 		result = result * 10 + *str - '0';
 		str++;
 	}
-	//printf("Atod %f\n", result);
 	if (*str == '.')
 	{
 		printf("after_dec %f\n", after_dec(str + 1));
 		result += after_dec(str + 1);
 	}
-	//printf("Test %f\n", result);
 	return ((result * sign));
 }
 
+//makes the numbers after the decimal point into a double which is 
+//added to the numbers before the decimal found in atod
 double	after_dec(const char *str)
 {
 	double	dec_place;

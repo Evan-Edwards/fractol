@@ -6,36 +6,26 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:45:38 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/27 11:01:53 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:14:38 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/*  void	all_pixels_red(t_fractal *fractal)
-{
-	int	x;
-	int	y;
-	int	red;
-	
-	red = 16711680;
-	y = -1;
-	while (++y < HEIGHT)
-	{
-		x = -1;
-		while (++x < WIDTH)
-			pixel_put_image(fractal, x, y, red);
-	}
-	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
-}  */
-
+//first checks that inputs are correct
+//2)initiates mlx, mlx_window, mlx_image, and hooks
+//3)uses parse_pixels to initiate image
+//4)loops, image in window refreshed whenever hook used
 int	main(int ac, char **av)
 {
 	t_fractal	fractal;
 
 	if (input_check(ac, av) == 0)
 	{
-		ft_putstr_fd(INVALID_ARGS_MESSAGE, 2);
+		ft_putstr_fd("Input invalid. Examples of valid input:\n", 2);
+		ft_putstr_fd("./fractol mandelbrot\n", 2);
+		ft_putstr_fd("./fractol burning\n", 2);
+		ft_putstr_fd("./fractol julia <num 1> <num 2>", 2);
 		return (1);
 	}
 	fractal_init(&fractal, av);

@@ -6,12 +6,16 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:33:06 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/27 13:34:40 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:48:53 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+//goes through each pixel of the image
+//finds place of pixel in 2d graph, tests if that point is in the mandelbrot set
+//or if it diverges within set iteration in the julia set
+//sets color accordingly
 void	parse_pixels(t_fractal *fractal)
 {
 	double	x;
@@ -37,6 +41,7 @@ void	parse_pixels(t_fractal *fractal)
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 }
 
+//used to find the x(real) and y(imaginary) values of each pixel based on window
 double	scaleBetween(double unscaled, double new_min, double new_max, 
 										double old_min, double old_max)
 {
@@ -51,10 +56,28 @@ int	which_color(t_fractal *fractal, double xx, double yy)
 	
 	if (!(ft_strncmp(fractal->title, "mandelbrot", 10)))
 		iterations = ft_mandelbrot_check(xx, yy, fractal);
-	else 
+	else if ((!(ft_strncmp(fractal->title, "burning", 7))))
+		iterations = ft_burning_ship_check(xx, yy, fractal);
+	else
 		iterations = ft_julia_check(xx, yy, fractal);
 	if (iterations == fractal->iterations)
-		return (COLOR_BLACK);
+		return (fractal->color_array[0]);
+	else
+    {
+        // Create a color gradient based on iteration count
+        int r = (iterations * 255) / fractal->iterations;
+        int g = (iterations * 128) / fractal->iterations;
+        int b = (iterations * 64) / fractal->iterations;
+        return (r << 16) | (g << 8) | b;
+    } 
+	/*  else
+    {
+        double t = (double)iterations / fractal->iterations;
+        int r = (int)(9 * (1 - t) * t * t * t * 255);
+        int g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
+        int b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+        return (r << 16) | (g << 8) | b;
+    } */
 	  else
     {
         // Create a color gradient based on iteration count
@@ -62,8 +85,10 @@ int	which_color(t_fractal *fractal, double xx, double yy)
         int g = (iterations * 128) / fractal->iterations;
         int b = (iterations * 64) / fractal->iterations;
         return (r << 16) | (g << 8) | b;
-    }
-	//return (fractal->color_array[iterations % 11]);
+    } 
+	//
+	/* else
+		return (fractal->color_array[1] * iterations); */
 }
 
 //checks whether an xx and yy are part of the mandelbrot set
@@ -72,7 +97,7 @@ int	which_color(t_fractal *fractal, double xx, double yy)
 // c real = xx / imaginary = yy
 // z starts as 0
 //If it diverges (absolute value of z^2 is more than 4) within the iteration limit 
-//(1000) then it is not part of the set 
+//(initially 100) then it is not part of the set 
 //(absolute value of z)^2 = zr^2 + zi^2
 int	ft_mandelbrot_check(double cr, double ci, t_fractal *fractal)
 {
@@ -104,7 +129,7 @@ int	ft_mandelbrot_check(double cr, double ci, t_fractal *fractal)
 // c real and imaginary values set to arguements given in av
 // z real = xx / imaginary = yy
 //If it diverges (absolute value of z ^2 is more than 4) within the iteration limit 
-//(1000) then it is not part of the set
+//(initially 100) then it is not part of the set
 //(absolute value of z)^2 = zr^2 + zi^2
 int	ft_julia_check(double zr, double zi, t_fractal *fractal)
 {
@@ -126,6 +151,38 @@ int	ft_julia_check(double zr, double zi, t_fractal *fractal)
 		zi = 2.0 * zr * zi + ci;
 		zr = zr2 - zi2 + cr;
 		iteration++;
+	}
+	return (iteration);
+}
+
+//checks whether an xx and yy are part of the burning_ship set
+//calculated by iterating formula: z = abs(z^2) - c
+//abs value of squaring z = zr^2 - zi^2 + 2 * zr * zi
+// c real = xx / imaginary = yy
+// z starts as 0
+//If it diverges (absolute value of z^2 is more than 4) within the iteration limit 
+//(initially 100) then it is not part of the set 
+//(absolute value of z)^2 = zr^2 + zi^2
+int	ft_burning_ship_check(double cr, double ci, t_fractal *fractal)
+{
+	double	zr;
+	double	zi;
+	double	zi2;
+	double	zr2;
+	int		iteration;
+
+	zr = 0;
+	zi = 0;
+	iteration = 0;
+	while (iteration < fractal->iterations)
+	{
+		zr2 = zr * zr;
+		zi2 = zi * zi;
+		if (zr2 + zi2 > 4 )
+			break;
+        zi = fabs(2 * zr * zi) - ci;
+		zr = zr2 - zi2 - cr;
+        iteration++;
 	}
 	return (iteration);
 }

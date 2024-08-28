@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:10:02 by eedwards          #+#    #+#             */
-/*   Updated: 2024/07/19 11:04:25 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:27:05 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void				ft_putstr_fd(char *s, int fd);
 /* ************************************************************************** */
 
 int					ft_atoi(char const *str);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_itoa(int n);
 char				**ft_split(char const *s, char c);
 char				*ft_strchr(const char *s, int c);

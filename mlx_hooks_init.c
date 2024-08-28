@@ -6,12 +6,17 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:09:19 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/27 13:12:01 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:40:55 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+//initiates all the keyhooks
+//esc key exits;
+//arrow keys move around
+//c will cycle the colors
+//+ and - keys on the numpad increase and decrease iterations
 int key_hook(int keycode, t_fractal *fractal)
 {
     
@@ -27,6 +32,9 @@ int key_hook(int keycode, t_fractal *fractal)
     return (0);
 }
 
+//initializes the mouse hooks
+//scroll up and scroll down zoom in and out and it does it centered on where
+//the mouse is located in the window
 int	mouse_hook(int button, int x, int y, t_fractal *fractal)
 {
 	double	range_r;
@@ -51,16 +59,17 @@ int	mouse_hook(int button, int x, int y, t_fractal *fractal)
 	parse_pixels(fractal);
 	return (0);
 }
-
+//increases or decreases iterations when + or - key is pressed
 void	iteration_change(t_fractal *fractal, int keycode)
 {
 	if (keycode == PLUS_KEY)
-		fractal->iterations += 50;
+		fractal->iterations += 10;
 	else if (keycode == MINUS_KEY)
-		fractal->iterations -= 50;
+		fractal->iterations -= 10;
 	parse_pixels(fractal);
 }
 
+//moves the center of the window up/down/left/right
 int	arrow_keys_hook(int	keycode, t_fractal *fractal)
 {
 	double	offset;
@@ -90,6 +99,7 @@ int	arrow_keys_hook(int	keycode, t_fractal *fractal)
 	return (0);
 }
 
+//cycles colors using the color array created
 void	cycle_colors(t_fractal *fractal)
 {
 	int	temp;

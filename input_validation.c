@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:03:42 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/20 15:30:45 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:29:47 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 //av[2] and av[3] are 2 numbers if av[1] is "julia"
 int	input_check(int ac, char **av)
 {
-	if (ac == 2 && !ft_strncmp(av[1], "mandelbrot", 10))
+	if (ac == 2 && !ft_strcmp(av[1], "mandelbrot"))
 		return (1);
-	else if (ac == 4 && !ft_strncmp(av[1], "julia", 5))
+	else if (ac == 2 && !ft_strcmp(av[1], "burning"))
+		return (1);
+	else if (ac == 4 && !ft_strcmp(av[1], "julia"))
 	{
 		if (check_julia_input(av[2]) && check_julia_input(av[3]))
 			return (1);
-		else
-			return (0);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 //checks if the string given is a valid input, can have 1 plus or
 //minus and the other characters must be numbers
+//makes sure there is max 1 decimal point
 int	check_julia_input(char *arg)
 {
 	int	i;

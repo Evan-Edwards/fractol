@@ -6,12 +6,14 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/27 12:55:01 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:50:28 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+//initializes mlx, mlx window, mlx image, and the mlx hooks
+//also sets values of variables in fractal
 void	fractal_init(t_fractal *fractal, char **av)
 {
 	fractal->mlx = mlx_init();
@@ -33,7 +35,7 @@ void	fractal_init(t_fractal *fractal, char **av)
 	fractal->y_min = -2.0;
 	fractal->y_max = 2.0;
 	fractal->title = av[1];
-	fractal->iterations = 100.0;
+	fractal->iterations = 1000.0;
 	if (!(strncmp(av[1], "julia", 5)))
 	{
 		fractal->jul_arg1 = ft_atod(av[2]);
@@ -42,7 +44,8 @@ void	fractal_init(t_fractal *fractal, char **av)
 	fractal->color_array = set_color_array();
 }
 
-
+//makes a color_array based on color values given in fractol.h
+//allows for cycling through colors
 int	*set_color_array(void)
 {
 		static int	array[11];
@@ -88,6 +91,6 @@ int	ft_close(t_fractal *fractal)
 //gives an error message if malloc fails then exits
 void	malloc_error(t_fractal *fractal)
 {
-	ft_putstr_fd(MALLOC_ERR_MESSAGE, 2);
+	ft_putstr_fd("Malloc failed", 2);
 	ft_close(fractal);
 }
