@@ -6,7 +6,7 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/26 14:40:03 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/28 16:05:01 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ MLX = minilibx
 MLXA = libmlx.a
 
 
-SRCS = atod.c fractal_calc.c f_main.c input_validation.c \
-	mlx_hooks_init.c mlx_utils.c
+SRCS = atod.c fractal_calc.c f_main.c fractal_init.c input_validation.c \
+	mlx_hooks_init.c scale_between.c
 
 OBJS = $(SRCS:.c=.o)
 

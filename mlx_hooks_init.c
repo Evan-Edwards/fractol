@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:09:19 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 10:40:55 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:52:38 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 //+ and - keys on the numpad increase and decrease iterations
 int key_hook(int keycode, t_fractal *fractal)
 {
-    
-	ft_printf("keycode: %i\n", keycode);
 	if (keycode == ESC_KEY)
         ft_close(fractal);
     else if (keycode >= LEFT_KEY && keycode <= DOWN_KEY)

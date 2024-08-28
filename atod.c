@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:13:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 10:21:26 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:44:10 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ double	ft_atod(const char *str)
 		str++;
 	}
 	if (*str == '.')
-	{
-		printf("after_dec %f\n", after_dec(str + 1));
 		result += after_dec(str + 1);
-	}
 	return ((result * sign));
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   fractal_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 11:50:28 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:57:48 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //initializes mlx, mlx window, mlx image, and the mlx hooks
 //also sets values of variables in fractal
-void	fractal_init(t_fractal *fractal, char **av)
+void	fractal_mlx_init(t_fractal *fractal)
 {
 	fractal->mlx = mlx_init();
 	if (!fractal->mlx)
@@ -25,17 +25,21 @@ void	fractal_init(t_fractal *fractal, char **av)
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
 	if (!fractal->img)
 		ft_close(fractal);
-	fractal->img_addr = mlx_get_data_addr(fractal->img, &fractal->bbp, 
-										&fractal->line_length, &fractal->endian);
+	fractal->img_addr = mlx_get_data_addr(fractal->img, &fractal->bbp,
+			&fractal->line_len, &fractal->endian);
 	mlx_key_hook(fractal->win, key_hook, fractal);
 	mlx_hook(fractal->win, 17, 0, ft_close, fractal);
 	mlx_mouse_hook(fractal->win, mouse_hook, fractal);
+}
+
+void	fractal_values_init(t_fractal *fractal, char **av)
+{
 	fractal->x_min = -2.0;
 	fractal->x_max = 2.0;
 	fractal->y_min = -2.0;
 	fractal->y_max = 2.0;
 	fractal->title = av[1];
-	fractal->iterations = 1000.0;
+	fractal->iterations = 100.0;
 	if (!(strncmp(av[1], "julia", 5)))
 	{
 		fractal->jul_arg1 = ft_atod(av[2]);
@@ -48,20 +52,20 @@ void	fractal_init(t_fractal *fractal, char **av)
 //allows for cycling through colors
 int	*set_color_array(void)
 {
-		static int	array[11];
+	static int	array[11];
 
-		array[0] = COLOR_BLACK;
-		array[1] = COLOR_WHITE;
-		array[2] = COLOR_RED;
-		array[3] = COLOR_GREEN;
-		array[4] = COLOR_BLUE;
-		array[5] = COLOR_YELLOW;
-		array[6] = COLOR_CYAN;
-		array[7] = COLOR_MAGENTA;
-		array[8] = COLOR_PSY_1;
-		array[9] = COLOR_PSY_2;
-		array[10] = COLOR_PSY_3;
-		return (array);
+	array[0] = COLOR_BLACK;
+	array[1] = COLOR_DARK_PURPLE;
+	array[2] = COLOR_PURPLE;
+	array[3] = COLOR_VIOLET;
+	array[4] = COLOR_MAGENTA;
+	array[5] = COLOR_HOT_PINK;
+	array[6] = COLOR_PINK;
+	array[7] = COLOR_LIGHT_PINK;
+	array[8] = COLOR_NEON_PINK;
+	array[9] = COLOR_PSYCHADELIC;
+	array[10] = COLOR_ORANGE;
+	return (array);
 }
 
 //puts colored pixels into the fractal->img
@@ -70,27 +74,6 @@ void	pixel_put_image(t_fractal *fractal, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = fractal->img_addr + (y * fractal->line_length + x * (fractal->bbp / 8));
-	*(unsigned int*)dst = color;
-}
-
-//destroys image, window, and display and frees mlx
-//then exits
-int	ft_close(t_fractal *fractal)
-{
-	if (fractal->img)
-		mlx_destroy_image(fractal->mlx, fractal->img);
-	if (fractal->win)
-		mlx_destroy_window(fractal->mlx, fractal->win);
-	mlx_destroy_display(fractal->mlx);
-	free (fractal->mlx);
-	exit (0);
-	//is 0 the correct exit code?
-}
-
-//gives an error message if malloc fails then exits
-void	malloc_error(t_fractal *fractal)
-{
-	ft_putstr_fd("Malloc failed", 2);
-	ft_close(fractal);
+	dst = fractal->img_addr + (y * fractal->line_len + x * (fractal->bbp / 8));
+	*(unsigned int *)dst = color;
 }

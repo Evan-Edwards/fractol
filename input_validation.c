@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:03:42 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 12:29:47 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:03:40 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ int	check_julia_input(char *arg)
 	}
 	return (1);
 }
-
