@@ -6,7 +6,7 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/30 11:32:24 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/30 13:47:20 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,9 @@ BOBJS = $(B_SRCS:bonus/%.c=obj/%.o)
 obj/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+obj/%.o: bonus/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -52,13 +55,20 @@ $(NAME): $(OBJS)
 	make -C $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS)
 
+bonus: $(BOBJS)
+	make -C $(MLX)
+	make -C $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME)_bonus $(BOBJS) $(LFLAGS)
+
 clean:
 	$(RM) $(OBJS) $(BOBJS)
 	make -C $(LIBFT) clean
 	make -C $(MLX) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME)_bonus
 	make -C $(LIBFT) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re bonus
