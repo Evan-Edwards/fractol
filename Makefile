@@ -6,48 +6,52 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/30 14:01:19 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/30 15:21:30 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 CC = cc -g
-RM = rm -f
+RM = rm -rf
 CFLAGS = -Wall -Werror -Wextra
 LFLAGS = -L./$(MLX) -lmlx -L./$(LIBFT) -lft -lX11 -lXext -lm
 LIBFT = libft
 LIBFTA = libft.a
 MLX = minilibx
 MLXA = libmlx.a
+OBJ_DIR = obj
+SRC_DIR = src
+
+SOURCES = atod.c \
+	error_exit.c \
+	fractal_calc.c \
+	f_main.c \
+	fractal_init.c \
+	input_validation.c \
+	mlx_hooks_init.c 
 
 
-SRCS = atod.c fractal_calc.c f_main.c fractal_init.c input_validation.c \
-	mlx_hooks_init.c scale_between.c
+SRCS = $(addprefix $(SRC_DIR)/, $(SOURCES))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
-OBJS = $(SRCS:.c=.o)
-
-%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(MLX)
-	make -C $(LIBFT)
+	@make -C $(MLX)
+	@make -C $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS)
-
-bonus: $(BOBJS)
-	make -C $(MLX)
-	make -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME)_bonus $(BOBJS) $(LFLAGS)
 
 clean:
 	$(RM) $(OBJS)
-	make -C $(LIBFT) clean
-	make -C $(MLX) clean
+	@make -C $(LIBFT) clean
+	@make -C $(MLX) clean
 
 fclean: clean
-	$(RM) $(NAME) $(NAME)_bonus
+	$(RM) $(NAME)
 	make -C $(LIBFT) fclean
 
 re: fclean all

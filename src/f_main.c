@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:45:38 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 15:54:11 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:55:27 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
 //1) checks that inputs are correct
 //2)initiates mlx, mlx_window, mlx_image, and hooks

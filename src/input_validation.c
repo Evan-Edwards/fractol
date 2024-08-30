@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:03:42 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 16:03:40 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:56:03 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
 //checks that the inputs are correct
 //av[1] should be either "mandelbrot" or "julia"

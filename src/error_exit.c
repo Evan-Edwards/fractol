@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:32:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 15:44:36 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:26:32 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
 //destroys image, window, and display and frees mlx
 //then exits
@@ -22,8 +22,7 @@ int	ft_close(t_fractal *fractal)
 		mlx_destroy_window(fractal->mlx, fractal->win);
 	mlx_destroy_display(fractal->mlx);
 	free (fractal->mlx);
-	exit (0);
-	//is 0 the correct exit code?
+	exit (EXIT_SUCCESS);
 }
 
 //gives an error message if malloc fails then exits

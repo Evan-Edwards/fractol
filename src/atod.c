@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:13:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 15:44:10 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:55:19 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
 //makes arguements given for julia into doubles
 double	ft_atod(const char *str)

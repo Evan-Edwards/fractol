@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:33:06 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 15:49:33 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:28:44 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol.h"
 
 //goes through each pixel of the image
 //finds place of pixel in 2d graph, tests if that point is in the mandelbrot set
@@ -19,34 +19,32 @@
 void	parse_pixels(t_fractal *fractal)
 {
 	double	x;
-	double	xx;
 	double	y;
-	double	yy;
-	double	x_scale;
-	double	y_scale;
 
-	x_scale = (fractal->x_max - fractal->x_min) / (WIDTH - 1);
-	y_scale = (fractal->y_max - fractal->y_min) / (HEIGHT - 1);
 	y = -1;
 	while (++y < HEIGHT)
 	{
-		yy = fractal->y_max - y * y_scale;
 		x = -1;
 		while (++x < WIDTH)
-		{
-			xx = fractal->x_min + x * x_scale;
-			pixel_put_image(fractal, x, y, which_color(fractal, xx, yy));
-		}
+			pixel_put_image(fractal, x, y, which_color(fractal, x, y));
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 }
 
 //returns a color based on whether the xx and yy given are part of the 
 //mandelbrot or Julia sets or not
-int	which_color(t_fractal *fractal, double xx, double yy)
+int	which_color(t_fractal *fractal, double x, double y)
 {
 	int		iterations;
+	double	xx;
+	double	yy;
+	double	x_scale;
+	double	y_scale;
 
+	x_scale = (fractal->x_max - fractal->x_min) / (WIDTH - 1);
+	y_scale = (fractal->y_max - fractal->y_min) / (HEIGHT - 1);
+	yy = fractal->y_max - y * y_scale;
+	xx = fractal->x_min + x * x_scale;
 	if (!(ft_strncmp(fractal->title, "mandelbrot", 10)))
 		iterations = ft_mandelbrot_check(xx, yy, fractal);
 	else if ((!(ft_strncmp(fractal->title, "burning", 7))))
@@ -55,14 +53,6 @@ int	which_color(t_fractal *fractal, double xx, double yy)
 		iterations = ft_julia_check(xx, yy, fractal);
 	if (iterations == fractal->iterations)
 		return (fractal->color_array[0]);
-	/*   else
-    {
-        // Create a color gradient based on iteration count
-        int r = (iterations * 255) / fractal->iterations;
-        int g = (iterations * 128) / fractal->iterations;
-        int b = (iterations * 64) / fractal->iterations;
-        return (r << 16) | (g << 8) | b;
-    }  */
 	else
 		return (fractal->color_array[iterations % 11]);
 }

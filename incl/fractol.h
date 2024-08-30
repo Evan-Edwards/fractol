@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 16:01:55 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:36:23 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,6 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-// Define colors using RGBA values (with transparency)
-
-# define COLOR_WHITE   0xFFFFFFFF
-# define COLOR_RED     0xFF0000FF
-# define COLOR_GREEN   0x00FF00FF
-# define COLOR_BLUE    0x0000FFFF
-# define COLOR_YELLOW  0xFFFF00FF
-# define COLOR_CYAN    0x00FFFFFF
-# define COLOR_SPRING_GREEN   0x00FF80FF
-# define COLOR_CHARTREUSE   0x80FF00FF
-# define COLOR_ORANGE   0xFF8000FF
-# define COLOR_LIME   0x00FF00FF
-
 # define COLOR_BLACK          0x00000000
 # define COLOR_DARK_PURPLE    0x2E004FFF
 # define COLOR_PURPLE         0x5C009FFF
@@ -49,9 +36,10 @@
 # define COLOR_LIGHT_PINK     0xFFB6C1FF
 # define COLOR_NEON_PINK      0xFF6FFF
 # define COLOR_PSYCHADELIC    0xFF00FF00
+# define COLOR_ORANGE         0xFF8000FF
 
-# include "minilibx/mlx.h" //doesn't work at home
-# include "libft/libft.h"
+# include "../minilibx/mlx.h" //doesn't work at home
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h> //DELETE
@@ -59,7 +47,7 @@
 # include <unistd.h> //write
 # include <float.h> //for DBL_MAX
 
-typedef struct	s_fractal {
+typedef struct	s_fractal{
 	char	*title;
 	void	*mlx;
 	void	*win;
@@ -122,7 +110,5 @@ int			which_color(t_fractal *fractal, double xx, double yy);
 int			ft_julia_check(double x, double y, t_fractal *fractal);
 int			ft_mandelbrot_check(double cr, double ci, t_fractal *fractal);
 int			ft_burning_ship_check(double cr, double ci, t_fractal *fractal);
-double		scaleBetween(double unscaled, double new_min, double new_max,
-				double old_min, double old_max);
 
 #endif
