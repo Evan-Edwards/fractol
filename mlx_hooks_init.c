@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_hooks_init_bonus.c                             :+:      :+:    :+:   */
+/*   mlx_hooks_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:09:19 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/30 11:36:26 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:52:38 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int key_hook(int keycode, t_fractal *fractal)
 //initializes the mouse hooks
 //scroll up and scroll down zoom in and out and it does it centered on where
 //the mouse is located in the window
-int	mouse_hook_bonus(int button, int x, int y, t_fractal *fractal)
+int	mouse_hook(int button, int x, int y, t_fractal *fractal)
 {
 	double	range_r;
 	double	range_i;
@@ -57,7 +57,6 @@ int	mouse_hook_bonus(int button, int x, int y, t_fractal *fractal)
 	parse_pixels(fractal);
 	return (0);
 }
-
 //increases or decreases iterations when + or - key is pressed
 void	iteration_change(t_fractal *fractal, int keycode)
 {
@@ -65,19 +64,6 @@ void	iteration_change(t_fractal *fractal, int keycode)
 		fractal->iterations += 10;
 	else if (keycode == MINUS_KEY)
 		fractal->iterations -= 10;
-	parse_pixels(fractal);
-}
-
-void	cycle_colors(t_fractal *fractal)
-{
-	int	temp;
-	int	i;
-
-	i = -1;
-	temp = fractal->color_array[0];
-	while (++i < 10)
-		fractal->color_array[i] = fractal->color_array[i + 1];
-	fractal->color_array[10] = temp;
 	parse_pixels(fractal);
 }
 
@@ -111,7 +97,16 @@ int	arrow_keys_hook(int	keycode, t_fractal *fractal)
 	return (0);
 }
 
+//cycles colors using the color array created
+void	cycle_colors(t_fractal *fractal)
+{
+	int	temp;
+	int	i;
 
-
-
-
+	i = -1;
+	temp = fractal->color_array[0];
+	while (++i < 10)
+		fractal->color_array[i] = fractal->color_array[i + 1];
+	fractal->color_array[10] = temp;
+	parse_pixels(fractal);
+}

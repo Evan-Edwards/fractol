@@ -6,7 +6,7 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/08/30 13:47:20 by eedwards         ###   ########.fr        #
+#    Updated: 2024/08/30 14:01:19 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,31 +21,12 @@ MLX = minilibx
 MLXA = libmlx.a
 
 
-SRCS = src/atod.c \
-	src/error_exit.c \
-	src/f_main.c \
-	src/fractal_calc.c \
-	src/fractal_init.c \
-	src/input_validation.c \
-	src/mlx_hooks_init.c \
-	src/scale_between.c
+SRCS = atod.c fractal_calc.c f_main.c fractal_init.c input_validation.c \
+	mlx_hooks_init.c scale_between.c
 
-B_SRCS = src/atod.c \
-	src/error_exit.c \
-	bonus/f_main_bonus.c \
-	bonus/fractal_calc_bonus.c \
-	src/fractal_init.c \
-	bonus/input_validation_bonus.c \
-	bonus/mlx_hooks_init_bonus.c \
-	src/scale_between.c
-	
-OBJS = $(SRCS:src/%.c=obj/%.o)
-BOBJS = $(B_SRCS:bonus/%.c=obj/%.o)
+OBJS = $(SRCS:.c=.o)
 
-obj/%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-obj/%.o: bonus/%.c
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
@@ -61,7 +42,7 @@ bonus: $(BOBJS)
 	$(CC) $(CFLAGS) -o $(NAME)_bonus $(BOBJS) $(LFLAGS)
 
 clean:
-	$(RM) $(OBJS) $(BOBJS)
+	$(RM) $(OBJS)
 	make -C $(LIBFT) clean
 	make -C $(MLX) clean
 
