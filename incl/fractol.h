@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 16:01:55 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:51:47 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 # define COLOR_NEON_PINK      0xFF6FFF
 # define COLOR_PSYCHADELIC    0xFF00FF00
 
-# include "minilibx/mlx.h" //doesn't work at home
-# include "libft/libft.h"
+# include "../minilibx/mlx.h" //doesn't work at home
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h> //DELETE
@@ -82,7 +82,7 @@ typedef struct	s_fractal {
 /* ************************************************************************** */
 /*                             INPUT VALIDATION                               */
 /* ************************************************************************** */
-int			input_check(int ac, char **av);
+int			input_check_bonus(int ac, char **av);
 int			check_julia_input(char *arg);
 
 /* ************************************************************************** */
@@ -108,10 +108,8 @@ void		malloc_error(t_fractal *fractal);
 /* ************************************************************************** */
 /*                                 MLX HOOKS                                  */
 /* ************************************************************************** */
-int			arrow_keys_hook(int keycode, t_fractal *fractal);
 int			key_hook(int keycode, t_fractal *fractal);
-int			mouse_hook(int button, int x, int y, t_fractal *fractal);
-void		cycle_colors(t_fractal *fractal);
+int			mouse_hook(int button, t_fractal *fractal);
 void		iteration_change(t_fractal *fractal, int keycode);
 
 /* ************************************************************************** */
@@ -121,7 +119,6 @@ void		parse_pixels(t_fractal *fractal);
 int			which_color(t_fractal *fractal, double xx, double yy);
 int			ft_julia_check(double x, double y, t_fractal *fractal);
 int			ft_mandelbrot_check(double cr, double ci, t_fractal *fractal);
-int			ft_burning_ship_check(double cr, double ci, t_fractal *fractal);
 double		scaleBetween(double unscaled, double new_min, double new_max,
 				double old_min, double old_max);
 

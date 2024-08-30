@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation.c                                 :+:      :+:    :+:   */
+/*   input_validation_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:03:42 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/28 16:03:40 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:49:20 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../incl/fractol_bonus.h"
 
 //checks that the inputs are correct
 //av[1] should be either "mandelbrot" or "julia"
 //av[2] and av[3] are 2 numbers if av[1] is "julia"
-int	input_check(int ac, char **av)
+int	input_check_bonus(int ac, char **av)
 {
 	if (ac == 2 && !ft_strcmp(av[1], "mandelbrot"))
 		return (1);
