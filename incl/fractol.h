@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/30 15:36:23 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:38:38 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@
 
 # include "../minilibx/mlx.h" //doesn't work at home
 # include "../libft/libft.h"
-# include <stdlib.h>
-# include <math.h>
-# include <stdio.h> //DELETE
+# include <math.h> //fabs
 # include <stdlib.h> //malloc free
 # include <unistd.h> //write
 # include <float.h> //for DBL_MAX
+# include <string.h> //strerror
+//# include <errno.h> //errno
 
 typedef struct	s_fractal{
 	char	*title;
@@ -91,7 +91,7 @@ void		pixel_put_image(t_fractal *img, int x, int y, int color);
 /*                               ERROR & CLOSE                                */
 /* ************************************************************************** */
 int			ft_close(t_fractal *fractal);
-void		malloc_error(t_fractal *fractal);
+void		ft_error(t_fractal *fractal);
 
 /* ************************************************************************** */
 /*                                 MLX HOOKS                                  */

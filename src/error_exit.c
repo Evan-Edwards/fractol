@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:32:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/30 15:26:32 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:34:20 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	ft_close(t_fractal *fractal)
 }
 
 //gives an error message if malloc fails then exits
-void	malloc_error(t_fractal *fractal)
+void	ft_error(t_fractal *fractal)
 {
-	ft_putstr_fd("Malloc failed", 2);
+	ft_printf("Error: %s\n", strerror(errno));
 	ft_close(fractal);
 }

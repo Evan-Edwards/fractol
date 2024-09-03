@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/30 14:55:32 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:33:47 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	fractal_mlx_init(t_fractal *fractal)
 {
 	fractal->mlx = mlx_init();
 	if (!fractal->mlx)
-		malloc_error(fractal);
+		ft_error(fractal);
 	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->title);
 	if (!fractal->win)
-		ft_close(fractal);
+		ft_error(fractal);
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
 	if (!fractal->img)
-		ft_close(fractal);
+		ft_error(fractal);
 	fractal->img_addr = mlx_get_data_addr(fractal->img, &fractal->bbp,
 			&fractal->line_len, &fractal->endian);
 	mlx_key_hook(fractal->win, key_hook, fractal);
