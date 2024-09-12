@@ -6,12 +6,12 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/09/12 10:43:38 by eedwards         ###   ########.fr        #
+#    Updated: 2024/09/12 11:03:31 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
-CC = cc -g
+CC = cc -g -I./minilibx -I./libft -I./incl
 RM = rm -rf
 CFLAGS = -Wall -Werror -Wextra -Ofast
 LFLAGS = -L./$(MLX) -lmlx -L./$(LIBFT) -lft -lX11 -lXext -lm

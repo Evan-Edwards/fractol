@@ -6,12 +6,20 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/12 10:44:11 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:13:31 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+# include "mlx.h"
+# include "libft.h"
+# include <math.h> //fabs
+# include <stdlib.h> //malloc free
+# include <unistd.h> //write
+# include <string.h> //strerror
+# include <errno.h> //errno
 
 # define WIDTH	800
 # define HEIGHT	800
@@ -41,16 +49,8 @@
 # define COLOR_PSYCHADELIC    0xFF00FF00
 # define COLOR_ORANGE         0xFF8000FF
 
-# include "../minilibx/mlx.h" //doesn't work at home
-# include "../libft/libft.h"
-# include <math.h> //fabs
-# include <stdlib.h> //malloc free
-# include <unistd.h> //write
-# include <float.h> //for DBL_MAX
-# include <string.h> //strerror
-# include <errno.h> //errno
-
-typedef struct	s_fractal{
+typedef struct s_fractal
+{
 	char	*title;
 	void	*mlx;
 	void	*win;
@@ -81,7 +81,6 @@ int			check_julia_input(char *arg);
 /*                                 ATOD                                       */
 /* ************************************************************************** */
 double		ft_atod(const char *str);
-double		after_dec(const char *str);
 
 /* ************************************************************************** */
 /*                               FRACTAL INIT                                 */

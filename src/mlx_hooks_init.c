@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:09:19 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/30 15:33:45 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:05:25 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/fractol.h"
+#include "fractol.h"
 
 //initiates all the keyhooks
 //esc key exits;

@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:32:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/03 12:34:20 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:05:33 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/fractol.h"
+#include "fractol.h"
 
 //destroys image, window, and display and frees mlx
 //then exits

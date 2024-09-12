@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/12 10:42:35 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:05:29 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/fractol.h"
+#include "fractol.h"
 
 //initializes mlx, mlx window, mlx image, and the mlx hooks
 //also sets values of variables in fractal

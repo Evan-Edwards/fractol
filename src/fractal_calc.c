@@ -6,11 +6,11 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:33:06 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/12 10:43:16 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:20:41 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/fractol.h"
+#include "fractol.h"
 
 //goes through each pixel of the image
 //finds place of pixel in 2d graph, tests if that point is in the mandelbrot set
