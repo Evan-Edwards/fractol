@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:47:27 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/03 12:38:38 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:44:11 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define MINUS_KEY 65453
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
+# define MANDELBROT 1
+# define JULIA 2
+# define BURNING 3
 
 # define COLOR_BLACK          0x00000000
 # define COLOR_DARK_PURPLE    0x2E004FFF
@@ -45,7 +48,7 @@
 # include <unistd.h> //write
 # include <float.h> //for DBL_MAX
 # include <string.h> //strerror
-//# include <errno.h> //errno
+# include <errno.h> //errno
 
 typedef struct	s_fractal{
 	char	*title;
@@ -65,6 +68,7 @@ typedef struct	s_fractal{
 	int		*color_array;
 	double	zoom;
 	double	iterations;
+	int		type;
 }				t_fractal;
 
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:29:14 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/03 12:33:47 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:42:35 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@ void	fractal_values_init(t_fractal *fractal, char **av)
 	fractal->iterations = 100.0;
 	if (!(strncmp(av[1], "julia", 5)))
 	{
+		fractal->type = JULIA;
 		fractal->jul_arg1 = ft_atod(av[2]);
 		fractal->jul_arg2 = ft_atod(av[3]);
 	}
+	else if (!(ft_strncmp(fractal->title, "burning", 7)))
+		fractal->type = BURNING;
+	else
+		fractal->type = MANDELBROT;
 	fractal->color_array = set_color_array();
 }
 

@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:33:06 by eedwards          #+#    #+#             */
-/*   Updated: 2024/08/30 15:28:44 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:43:16 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	which_color(t_fractal *fractal, double x, double y)
 	y_scale = (fractal->y_max - fractal->y_min) / (HEIGHT - 1);
 	yy = fractal->y_max - y * y_scale;
 	xx = fractal->x_min + x * x_scale;
-	if (!(ft_strncmp(fractal->title, "mandelbrot", 10)))
+	if (fractal->type == MANDELBROT)
 		iterations = ft_mandelbrot_check(xx, yy, fractal);
-	else if ((!(ft_strncmp(fractal->title, "burning", 7))))
+	else if (fractal->type == BURNING)
 		iterations = ft_burning_ship_check(xx, yy, fractal);
 	else
 		iterations = ft_julia_check(xx, yy, fractal);
