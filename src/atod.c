@@ -6,7 +6,7 @@
 /*   By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:13:58 by eedwards          #+#    #+#             */
-/*   Updated: 2024/09/12 12:08:54 by eedwards         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:02:27 by eedwards         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,4 @@ double	ft_atod(const char *str)
 		}
 	}
 	return ((result * sign));
-}
-
-//makes the numbers after the decimal point into a double which is 
-//added to the numbers before the decimal found in atod
-double	after_dec(const char *str)
-{
-	double	dec_place;
-	double	result;
-
-	result = 0;
-	dec_place = 0.1;
-	while (*str >= '0' && *str <= '9' && *str && dec_place > 0)
-	{
-		result += (*str - '0') * dec_place;
-		dec_place /= 10;
-		str++;
-	}
-	return (result);
 }
