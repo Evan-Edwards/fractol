@@ -93,7 +93,7 @@ void		pixel_put_image(t_fractal *img, int x, int y, int color);
 /* ************************************************************************** */
 /*                               ERROR & CLOSE                                */
 /* ************************************************************************** */
-int			ft_close(t_fractal *fractal);
+int		ft_close(t_fractal *fractal);
 void		ft_error(t_fractal *fractal);
 
 /* ************************************************************************** */

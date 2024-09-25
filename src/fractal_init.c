@@ -40,7 +40,7 @@ void	fractal_values_init(t_fractal *fractal, char **av)
 	fractal->y_max = 2.0;
 	fractal->title = av[1];
 	fractal->iterations = 100.0;
-	if (!(strncmp(av[1], "julia", 5)))
+	if (!(ft_strncmp(av[1], "julia", 5)))
 	{
 		fractal->type = JULIA;
 		fractal->jul_arg1 = ft_atod(av[2]);
