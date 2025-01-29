@@ -6,12 +6,12 @@
 #    By: eedwards <eedwards@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/12 13:17:22 by eedwards          #+#    #+#              #
-#    Updated: 2024/09/12 11:03:31 by eedwards         ###   ########.fr        #
+#    Updated: 2025/01/29 13:21:39 by eedwards         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
-CC = cc -g -I./minilibx -I./libft -I./incl
+CC = cc -g -I./minilibx -I./libft/incl -I./incl
 RM = rm -rf
 CFLAGS = -Wall -Werror -Wextra -Ofast
 LFLAGS = -L./$(MLX) -lmlx -L./$(LIBFT) -lft -lX11 -lXext -lm
@@ -21,6 +21,7 @@ MLX = minilibx
 MLXA = libmlx.a
 OBJ_DIR = obj
 SRC_DIR = src
+MAKE_SILENT = make --no-print-directory
 
 SOURCES = atod.c \
 	error_exit.c \
@@ -36,23 +37,26 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@make -C $(MLX)
-	@make -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS)
+	@$(MAKE_SILENT) -C $(MLX)
+	@$(MAKE_SILENT) -C $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS)
+	@echo "$(NAME) created"
 
 clean:
-	$(RM) $(OBJS)
-	@make -C $(LIBFT) clean
-	@make -C $(MLX) clean
+	@$(RM) -r obj
+	@$(MAKE_SILENT) -C $(LIBFT) clean
+	@$(MAKE_SILENT) -C $(MLX) clean
+	@echo "fractol object files removed"
 
 fclean: clean
-	$(RM) $(NAME)
-	make -C $(LIBFT) fclean
+	@$(RM) $(NAME)
+	@$(MAKE_SILENT) -C $(LIBFT) fclean
+	@echo "$(NAME) removed"
 
 re: fclean all
 
